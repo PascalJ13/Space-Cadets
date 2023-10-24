@@ -1,0 +1,7 @@
+clear a;
+if a not 0;
+    incr a;
+else;
+    incr a;
+    incr a;
+endif;
