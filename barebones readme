@@ -1,0 +1,50 @@
+Basic rules of the language:
+Semi colons mark the end of a statement and so separating code by lines is not actually necessary although obviously more readable.
+Indenting is not necessary although once again makes it easier to read.
+Any characters can be used in variable names as long as it works (idk what ill do if it doesn't)
+Code can technically be separated over multiple lines as long as spacing and code itself is correct (once again idk why you'd do this).
+
+
+
+
+Operators:
+
+clear varName: Takes only one operand input (varName), will check to see if the variable exists, if so it will reset its value to 0, if not it will create a new variable with value 0.
+    Example - clear VAR1;
+
+incr varName: Takes only one operand input (varName), if the variable exists it will increment its value by 1.
+    Example - incr VAR1;
+
+decr varName: Takes only one operand input (varName), if the variable exists it will decrement its value by 1.
+    Example - decr VAR1;
+
+while varName not val do: Takes 2 operand inputs (varName) and (val). The code within the while will run while the variable is not equal to the value.
+    Example - while VAR1 not 10 do;
+                //code runs here
+              endwhile;
+
+endwhile: Declares the end of a while loop.
+    Example - while VAR1 not 1 do;
+                incr VAR1;
+              endwhile;
+
+if varName not val do: Takes 2 operand inputs (varName) and (val). The code within the if will run if the variable is not equal to the value, if not it will look for an else statement or skip the statement if an else doesn't exist
+    Example - if VAR1 not 1 do;
+                incr VAR1;
+              endif;
+
+else: If connected to a prior if statement that has just been skipped due to the statement being false, it will run the code inside.
+    Example - if VAR1 not 0 do;
+                incr VAR1;
+              else;
+                clear VAR1;
+              endif;
+
+endif: Declares the end of an if statement, if an else is connected to the end of an if then it will only need to be present at the end of the else.
+    Example - if VAR1 not 10 do;
+                clear VAR1;
+               endif;
+
+Comments:
+//: Used to denote the start of a comment, this will comment the line meaning it won't run as code
+    Example - clear VAR1; //This is a comment

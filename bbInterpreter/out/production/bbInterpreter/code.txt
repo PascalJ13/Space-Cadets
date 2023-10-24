@@ -1,0 +1,4 @@
+clear a;
+while a not 1 is;
+    incr a;
+endwhile;
