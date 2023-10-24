@@ -1,8 +1,0 @@
-clear a;
-clear b;
-while a not 5 do;
-    if a not 2 do;
-        incr b;
-    endif;
-    incr a;
-endwhile;
