@@ -13,7 +13,7 @@ public class Interpreter
     Stack<Integer> whileStack = new Stack<Integer>(); //Stores line num of start of while statement
 
 
-    public static void main(String[] args) throws customException {
+    public static void main(String[] args) throws customDelimiterException {
         //Get program file
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter the name of the program file: ");
@@ -58,7 +58,14 @@ public class Interpreter
                             whileStack.push(lineNum); //Loop begins so push to stack
                         }
                         break;
-                    case "end":
+                    case "if":
+                        if (!iF(words[2], words[4], words[3], words[1])) //If not valid
+                        {
+                            skip = true; //Skips the code of the if statement
+                            skipCount = 1; //1 end statement needs to be skipped minimum
+                        }
+                        break;
+                    case "endwhile":
                         lineNum = whileStack.pop()-1;
                         break;
                 }
@@ -66,11 +73,11 @@ public class Interpreter
             }
             else //Skipping to line after next end
             {
-                if (words[0].equals("while"))
+                if (words[0].equals("while") || words[0].equals("if")) //nested if statements and while loops also skipped
                 {
                     skipCount++;
                 }
-                if (words[0].equals("end")) //Successfully skipped over an end statement
+                if (words[0].equals("endwhile") || words[0].equals("endif")) //Successfully skipped over an end statement
                 {
                     skipCount--;
                     if (skipCount == 0)
@@ -145,7 +152,35 @@ public class Interpreter
         }
     }
 
-    ArrayList<String> statementGen(String fileName) throws customException//Separates the code by the ; into different elements
+    boolean iF(String notKeyword, String doKeyword, String val, String varName) //returns true if statement holds
+    {
+        if (variables.containsKey(varName)) //Ensures the variable exists
+        {
+            if (notKeyword.equals("not") && doKeyword.equals("do")) //Ensures correct keywords present
+            {
+                if (variables.get(varName) != Integer.parseInt(val)) //Statement holds
+                {
+                    return true;
+                }
+                else //Statement no longer holds
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                System.out.println("Keywords missing for if statement!");
+                return false;
+            }
+        }
+        else
+        {
+            System.out.println("Var not found!");
+            return false;
+        }
+    }
+
+    ArrayList<String> statementGen(String fileName) throws customDelimiterException//Separates the code by the ; into different elements, removes comments and unnecessary whitespace
     {
         ArrayList<String> code = new ArrayList<String>();
         try
@@ -154,7 +189,9 @@ public class Interpreter
             String temp = ""; //Holds code until next ; found
             while (fileReader.hasNextLine()) //Reads through whole file
             {
-                String codeLine = temp + fileReader.nextLine();
+                String codeLine = temp + fileReader.nextLine(); //Gets the next bit of code
+                codeLine = removeComments(codeLine); //Removes comments from the code
+
                 if (codeLine.contains(";")) //Ensures there is a finished statement on the line
                 {
                     while (codeLine.contains(";")) //Separates into statements until there are no ; left in the line
@@ -172,9 +209,9 @@ public class Interpreter
                     temp += codeLine; //Add that line to temp
                 }
             }
-            if (!temp.equals("")) //Missing ;
+            if (!temp.isBlank()) //Missing ;
             {
-                throw new customException("Missing ;"); //Throw exception for missing ;
+                throw new customDelimiterException("Missing ;"); //Throw exception for missing ;
             }
             fileReader.close();
         }
@@ -184,5 +221,20 @@ public class Interpreter
         }
 
         return code;
+    }
+
+    String removeComments(String codeLine) //Removes comments from the code to be interpreted
+    {
+        if (codeLine.contains("//")) //Comment in line
+        {
+            String comment = codeLine.substring(codeLine.indexOf("//"));
+            String line = codeLine.substring(0, codeLine.indexOf("//"));
+            //System.out.println("Comment is: " + comment + " Code is: " + line);
+            return line;
+        }
+        else
+        {
+            return codeLine;
+        }
     }
 }
