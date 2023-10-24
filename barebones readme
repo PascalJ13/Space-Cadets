@@ -1,0 +1,22 @@
+Basic rules of the language:
+Semi colons mark the end of a statement and so separating code by lines is not actually necessary although obviously more readable.
+Indenting is not necessary although once again makes it easier to read.
+Any characters can be used in variable names as long as it works (idk what ill do if it doesn't)
+Code can technically be separated over multiple lines as long as spacing and code itself is correct (once again idk why you'd do this).
+
+
+
+
+Operators:
+clear: Takes only one operand input, will check to see if the variable exists, if so it will reset its value to 0, if not it will create a new variable with value 0.
+  Example - clear VAR1;
+incr: Takes only one operand input, if the variable exists it will increment its value by 1.
+  Example - incr VAR1;
+decr: Takes only one operand input, if the variable exists it will decrement its value by 1.
+  Example - decr VAR1;
+endwhile: Declares the end of a while loop.
+endif: Declares the end of an if statement
+
+Comments:
+// is used to denote the start of a comment, this will comment the line
+  Example clear VAR1; //This is a comment
