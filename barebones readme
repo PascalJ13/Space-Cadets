@@ -33,6 +33,14 @@ if varName not val do: Takes 2 operand inputs (varName) and (val). The code with
                 incr VAR1;
               endif;
 
+elsif varName not val do: Takes 2 operand inputs (varName) and (val). If the if statement failed then this will be evaluated.
+The code within will run if the variable is not equal to the value.
+    Example - if VAR1 not 0 do;
+                  incr VAR1;
+              elsif VAR1 not 1 do;
+                  decr VAR1;
+              endif;
+
 else: If connected to a prior if statement that has just been skipped due to the statement being false, it will run the code inside.
     Example - if VAR1 not 0 do;
                 incr VAR1;
